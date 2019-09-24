@@ -34,6 +34,9 @@ public class CreateList extends AppCompatActivity {
     //declare a Calendar
     Calendar calendar;
 
+    //declare a databade handler
+    DBHandler dbHandler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,6 +78,9 @@ public class CreateList extends AppCompatActivity {
                         calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
+
+        //initialize database handler
+        dbHandler = new DBHandler(this, null);
 
     }
 
@@ -124,6 +130,8 @@ public class CreateList extends AppCompatActivity {
             //if any of the Strings are empty, display Please enter ... Toast
             Toast.makeText(this, "Please enter a name, store, and date!", Toast.LENGTH_LONG).show();
         } else {
+            //add shopping list to database
+            dbHandler.addShoppingList(name, store, date);
             //if none of the Strings are empty, display Shopping List Added Toast
             Toast.makeText(this, "Shopping List Added!", Toast.LENGTH_LONG).show();
         }
